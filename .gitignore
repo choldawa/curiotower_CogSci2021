@@ -1,0 +1,12 @@
+auth.json
+auth.txt
+credentials.py
+
+.DS_Store
+*.png
+*.pdf
+*.json
+*.csv
+*.jpeg
+*.jpg
+*.mp4
