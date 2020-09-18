@@ -47,14 +47,18 @@ app.get('/*', (req, res) => {
 io.on('connection', function (socket) {
 
   // Recover query string information and set condition
-  var hs = socket.request;
+  var gameid = UUID();
+  var hs = socket.request;  
   var query = require('url').parse(hs.headers.referer, true).query;
   var id = query.workerId;
-
   var isResearcher = _.includes(researchers, id);
 
+  var packet = {
+    gameid: gameid,    
+  };  
+
   if (!id || isResearcher && !blockResearcher){
-    initializeWithTrials(socket)
+    socket.emit('onConnected', packet); 
   } else if (!valid_id(id)) {
     console.log('invalid id, blocked');
   } else {
@@ -120,31 +124,25 @@ function checkPreviousParticipant(workerId, callback) {
   );
 };
 
-
-function initializeWithTrials(socket) {
-  var gameid = UUID();
-  var colname = 'causaldraw_annotations_patching'; // experiment name is 'causaldraw_annotations' but patching is called 'causaldraw_annotations_patching'
-  sendPostRequest('http://localhost:7000/db/getbatchstims', {
+function sendStim(socket, data) {
+  console.log('sending request collection')
+  sendPostRequest('http://localhost:7000/db/getstims', {
     json: {
       dbname: 'stimuli',
-      colname: colname,
-      //numTrials: 1,
-      gameid: gameid
+      colname: 'curiotower_curiodrop',
+      numTrials: 1,
+      gameid: data.gameID
     }
   }, (error, res, body) => {
     if (!error && res.statusCode === 200) {
-      // send trial list (and id) to client
-      var packet = {
-        gameid: gameid,
-        meta: body.meta,
-        version: body.experimentVersion
-      };
-      socket.emit('onConnected', packet);
+      socket.emit('stimulus', body);     
     } else {
       console.log(`error getting stims: ${error} ${body}`);
+      console.log(`falling back to local stimList`);
+      socket.emit('stimulus', _.sample(require('./example.json')));
     }
   });
-}
+} // 
 
 var UUID = function() {
   var baseName = (Math.floor(Math.random() * 10) + '' +
@@ -158,7 +156,6 @@ var UUID = function() {
   });
   return id;
 };
-
 
 var writeDataToMongo = function(data) {
   sendPostRequest(
