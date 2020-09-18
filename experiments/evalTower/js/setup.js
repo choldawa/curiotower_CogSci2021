@@ -25,25 +25,9 @@ function setupGame() {
     const includeIntro = false;    
     const includeGoodbye = true;
 
-    // Grab attributes of "d" that came back from server 
-    // (note: this is what we created in 'generate_metadata.ipynb')      
     var gameid = d.gameid;    
 
-    // console.log('meta', meta);
-
-    // Now construct trials list    
-    var exp = new Experiment;
-    var trials = _.map(_.range(exp.numTrials), function (n,i) {
-      console.log('adding trial')
-      return _.extend({}, new Experiment, {
-        trialNum: i,
-        on_finish: main_on_finish, 
-        on_start: main_on_start,
-        image_url: 'URL_PLACEHOLDER',        
-        towerID: 'TOWERID_PLACEHOLDER',
-      });
-    });
-      console.log('trials',trials);
+   console.log('insetupgame');
 
     var main_on_start = function(trial) {
         socket.removeListener('stimulus', oldCallback);
@@ -53,9 +37,11 @@ function setupGame() {
             trial.image_url = d.imageURL;
             trial.stim_version = d.stim_version;
             trial.towerID = d.towerID;
+	    trial.gameID = gameid
         };
         // call server for stims
-        socket.emit('getStim', {gameID: id});
+	console.log('inside mainonstart');
+        socket.emit('getStim', {gameID: gameid});
         socket.on('stimulus', newCallback);
 
     };
@@ -65,6 +51,20 @@ function setupGame() {
       socket.emit('currentData', data);
       console.log('emitting data');
     }
+
+      
+    // Now construct trials list    
+    var exp = new Experiment;
+    var trials = _.map(_.range(exp.numTrials), function (n,i) {
+      return _.extend({}, new Experiment, {
+        trialNum: i,
+        on_finish: main_on_finish, 
+        on_start: main_on_start,
+        image_url: 'URL_PLACEHOLDER',        
+        towerID: 'TOWERID_PLACEHOLDER',
+      });
+    });
+      console.log('trials',trials);
 
 
     var instructionsHTML = {
