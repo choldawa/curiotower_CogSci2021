@@ -162,8 +162,6 @@ function setupGame() {
     jsPsych.init({
       timeline: trials,
       default_iti: 1000,
-      preload_video: videoPaths,
-      preload_images: imagePaths,
       show_progress_bar: true
     });
 

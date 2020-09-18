@@ -2,6 +2,7 @@ auth.json
 auth.txt
 credentials.py
 .ipynb_checkpoints/
+node_modules/
 .DS_Store
 *.png
 *.pdf
