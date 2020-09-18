@@ -1,3 +1,5 @@
+var oldCallback;
+
 function sendData(data) {
   console.log('sending data to mturk');
   jsPsych.turk.submitToTurk({
@@ -36,10 +38,25 @@ function setupGame() {
         trialNum: i,
         on_finish: main_on_finish, 
         on_start: main_on_start,
+        imageURL: 'URL_PLACEHOLDER',        
         towerID: 'TOWERID_PLACEHOLDER',
-        imageURL: 'URL_PLACEHOLDER',
       });
     });    
+
+    var main_on_start = function(trial) {
+        socket.removeListener('stimulus', oldCallback);
+        oldCallback = newCallback;
+        
+        var newCallback = function (d) {
+            trial.imageURL = d.imageURL;
+            trial.stim_version = d.stim_version;
+            trial.towerID = d.towerID;
+        };
+        // call server for stims
+        socket.emit('getStim', {gameID: id});
+        socket.on('stimulus', newCallback);
+
+    };
 
     // at end of each trial save data locally and send data to server
     var main_on_finish = function(data) {
@@ -47,20 +64,6 @@ function setupGame() {
       console.log('emitting data');
     }
 
-    // add additional default info so that experiment doesnt break without any stim uploaded
-    var additionalInfo = {
-      gameID: gameid,
-      on_finish: main_on_finish
-    }
-  
-    // get annotation trials, and add the plugin type attribute to each
-    var trials = _.map(meta, function(trial, i) {
-	  return _.extend({}, trial, new Trial, additionalInfo, {
-        // trialNum will be 10 trials + 1 catchTrial
-        trialNum: i,
-        numTrials: numTrials,
-	   })
-    });    
 
     var instructionsHTML = {
         'str1' : "<p> Here’s how the game will work: </p> <p> On each trial, you will see a tracing on top of a reference shape. The tracing is marked in red and the reference shape is in grey. Your goal is to rate how accurately the tracing matches the SHAPE and is aligned to the POSITION of the reference. The rating scale ranges from 1 (POOR) to 5 (EXCELLENT).</p>",
