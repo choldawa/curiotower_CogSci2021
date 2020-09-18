@@ -11,7 +11,6 @@ import pandas as pd
 from PIL import Image
 import argparse
 
-
 def list_files(path, ext='png'):
     result = [y for x in os.walk(path) for y in glob(os.path.join(x[0], '*.%s' % ext))]
     return result
