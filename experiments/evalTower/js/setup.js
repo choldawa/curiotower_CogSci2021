@@ -9,10 +9,11 @@ function sendData(data) {
 
 // Define trial object with boilerplate
 function Experiment() {
-	this.type = 'jspsych-image-button-response',
-  this.dbname = 'curiotower';
-  this.colname = 'curiodrop'; 
-  this.iterationName = 'testing'; 
+    this.type = 'image-button-response',
+    this.dbname = 'curiotower';
+    this.colname = 'curiodrop'; 
+    this.iterationName = 'testing';
+    this.numTrials = 69;
 };
 
 function setupGame() {
@@ -38,17 +39,18 @@ function setupGame() {
         trialNum: i,
         on_finish: main_on_finish, 
         on_start: main_on_start,
-        imageURL: 'URL_PLACEHOLDER',        
+        image_url: 'URL_PLACEHOLDER',        
         towerID: 'TOWERID_PLACEHOLDER',
       });
-    });    
+    });
+      console.log('trials',trials);
 
     var main_on_start = function(trial) {
         socket.removeListener('stimulus', oldCallback);
         oldCallback = newCallback;
         
         var newCallback = function (d) {
-            trial.imageURL = d.imageURL;
+            trial.image_url = d.imageURL;
             trial.stim_version = d.stim_version;
             trial.towerID = d.towerID;
         };
@@ -162,8 +164,6 @@ function setupGame() {
     jsPsych.init({
       timeline: trials,
       default_iti: 1000,
-      preload_video: videoPaths,
-      preload_images: imagePaths,
       show_progress_bar: true
     });
 

@@ -19,12 +19,6 @@ jsPsych.plugins["image-button-response"] = (function() {
         name: 'image-button-response',
         description: '',
         parameters: {
-            category: {
-                type: jsPsych.plugins.parameterType.STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
-                pretty_name: 'category',
-                default: undefined,
-                description: 'The category label.'
-            },
             image_html: {
                 type: jsPsych.plugins.parameterType.IMAGE,
                 pretty_name: 'image HTML',
@@ -49,21 +43,21 @@ jsPsych.plugins["image-button-response"] = (function() {
             upper_bound:{
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'upper_bound',
-                default: '0',
+                default: 'coolest',
                 array: true,
                 description: 'The upper bound label of the rating'
             },
             lower_bound:{
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'lower_bound',
-                default: '0',
+                default: 'boring',
                 array: true,
                 description: 'The lower bound label of the rating'
             },
             choices: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Choices',
-                default: undefined,
+                default: "12345",
                 array: true,
                 description: 'The labels for the buttons.'
             },
