@@ -67,16 +67,18 @@ io.on('connection', function (socket) {
     });
   }
 
-  // write data to db upon getting current data
-  socket.on('currentData', function(data) {
-    console.log('currentData received: ' + JSON.stringify(data));
-    // Increment games list in mongo here
-    writeDataToMongo(data);
-  });
+    // write data to db upon getting current data
+    socket.on('currentData', function(data) {
+	console.log('currentData received: ' + JSON.stringify(data));
+	// Increment games list in mongo here
+	writeDataToMongo(data);
+    });
 
-  socket.on('getStim', function(data) {
-      sendStim(socket, data);
-  });  
+    // got request for stim
+    socket.on('getStim', function(data) {
+	console.log('got a stim request');
+	sendStim(socket, data);
+    });  
 
 });
 
@@ -129,7 +131,7 @@ function checkPreviousParticipant(workerId, callback) {
 };
 
 function sendStim(socket, data) {
-  console.log('sending request collection')
+  console.log('sending request to mongo')
   sendPostRequest('http://localhost:7000/db/getstims', {
     json: {
       dbname: 'stimuli',
