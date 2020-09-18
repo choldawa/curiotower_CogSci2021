@@ -1,6 +1,6 @@
-### Stimulus preprocessing
+# Stimulus preprocessing
 
-#### Our pipeline for pilot0
+## Our pipeline for pilot0
 
 1. Obtained directory of JPEG images from [curiobaby_drop](https://github.com/langcog/curiobaby_drop)
 2. Converted JPEG to PNG: `jpg2png.py`
