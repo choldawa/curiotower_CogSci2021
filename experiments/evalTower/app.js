@@ -74,6 +74,10 @@ io.on('connection', function (socket) {
     writeDataToMongo(data);
   });
 
+  socket.on('getStim', function(data) {
+      sendStim(socket, data);
+  });  
+
 });
 
 var serveFile = function(req, res) {
