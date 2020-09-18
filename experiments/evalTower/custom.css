@@ -9,6 +9,15 @@
   font-family: 'Lato', sans-serif;
 }
 
+#upper_bound{
+    margin-left:2vw;
+}
+
+#lower_bound{
+    margin-right:2vw;
+    margin-left:4vw;
+}
+
 .jspsych-display-element {
   display: flex;
   flex-direction: column;
