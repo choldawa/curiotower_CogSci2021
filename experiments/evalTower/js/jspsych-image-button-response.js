@@ -136,7 +136,8 @@ jsPsych.plugins["image-button-response"] = (function() {
             if (trial.prompt !== null) {
                 var html = '<div id="prompt">' + trial.prompt + '</div>';
             }
-	         console.log("prompt" + trial.prompt);
+	    console.log("prompt " + trial.prompt);
+	    console.log('condition ' + trial.condition);
             // display the message
             if (trial.message !== null) {
                 html += '<div class="msg-alert" id="message">' + trial.message.alert + '</div>';

@@ -13,7 +13,9 @@ function Experiment() {
     this.dbname = 'curiotower';
     this.colname = 'curiodrop'; 
     this.iterationName = 'testing';
-    this.numTrials = 69;
+    this.numTrials = 69; // TODO: dont hard code this, judy! infer it from the data
+    this.condition = _.sample([0,1])==1 ? 'interesting' : 'stable'; 
+    this.prompt = this.condition=='interesting' ? 'How interesting is this tower?' : 'How stable is this tower?';
 };
 
 function setupGame() {
