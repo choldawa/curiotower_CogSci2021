@@ -110,7 +110,7 @@ function checkPreviousParticipant(workerId, callback) {
     projection: { '_id': 1 }
   };
   sendPostRequest(
-    'http://localhost:7000/db/exists',
+    'http://localhost:8000/db/exists',
     { json: postData },
     (error, res, body) => {
       try {
@@ -132,7 +132,7 @@ function checkPreviousParticipant(workerId, callback) {
 
 function sendStim(socket, data) {
   console.log('sending request to mongo')
-  sendPostRequest('http://localhost:7000/db/getstims', {
+  sendPostRequest('http://localhost:8000/db/getstims', {
     json: {
       dbname: 'stimuli',
       colname: 'curiotower_curiodrop',
@@ -165,7 +165,7 @@ var UUID = function() {
 
 var writeDataToMongo = function(data) {
   sendPostRequest(
-    'http://localhost:7000/db/insert',
+    'http://localhost:8000/db/insert',
     { json: data },
     (error, res, body) => {
       if (!error && res.statusCode === 200) {

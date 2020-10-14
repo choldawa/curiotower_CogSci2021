@@ -12,7 +12,7 @@ const colors = require('colors/safe');
 const app = express();
 const ObjectID = mongodb.ObjectID;
 const MongoClient = mongodb.MongoClient;
-const port = 7000; 
+const port = 8000; 
 const mongoCreds = require('./auth.json');
 const mongoURL = `mongodb://${mongoCreds.user}:${mongoCreds.password}@localhost:27017/`;
 const handlers = {};
@@ -101,7 +101,7 @@ function serve() {
 
       const data = _.omit(request.body, ['colname', 'dbname']);
       // log(`inserting data: ${JSON.stringify(data)}`);
-      collection.insert(data, (err, result) => {
+	collection.insert(data, (err, result) => {
         if (err) {
           return failure(response, `error inserting data: ${err}`);
         } else {
@@ -140,7 +140,7 @@ function serve() {
             // Immediately mark as annotated so others won't get it too
 
           markAnnotation(collection, request.body.gameid, results[0]['_id']);
-          response.send(results[0]);
+            response.send(results[0]);
         }
       });
     });
@@ -154,8 +154,8 @@ function serve() {
       const query = request.body.query;
       const projection = request.body.projection;
       // hardcoded for now (TODO: get list of collections in db)
-      var collectionList = ['curiotower']; 
-      function checkCollectionForHits(collectionName, query, projection, callback) {
+	var collectionList = ['curiotower']; 
+	function checkCollectionForHits(collectionName, query, projection, callback) {
         const collection = database.collection(collectionName);        
         collection.find(query, projection).limit(1).toArray((err, items) => {          
           callback(!_.isEmpty(items));
