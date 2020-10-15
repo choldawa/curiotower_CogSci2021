@@ -24,7 +24,7 @@ function setupGame() {
     var turkInfo = jsPsych.turk.turkInfo();
 
     // These are flags to control which trial types are included in the experiment
-    const includeIntro = false;    
+    const includeIntro = true;    
     const includeGoodbye = true;
 
     var gameid = d.gameid;    
@@ -69,19 +69,34 @@ function setupGame() {
       console.log('trials',trials);
 
 
+    // var instructionsHTML = {
+    //     'str1' : "<p> Here’s how the game will work: </p> <p> On each trial, you will see a tracing on top of a reference shape. The tracing is marked in red and the reference shape is in grey. Your goal is to rate how accurately the tracing matches the SHAPE and is aligned to the POSITION of the reference. The rating scale ranges from 1 (POOR) to 5 (EXCELLENT).</p>",
+    //     'str2': ["<p>Here’s how the game will work: </p> <p> On each trial, you will see a tracing on top of a reference shape. The tracing is marked in red and the reference shape is in grey. Your goal is to rate how accurately the tracing matches the SHAPE and is aligned to the POSITION of the reference. The rating scale ranges from 1 (POOR) to 5 (EXCELLENT). </p> <p> Here are some example tracings that should be given a score of 5 (EXCELLENT) and some tracings that should be given a score of 1 (POOR).</p>",
+    //         '<p>Example tracing with score 5: </p>',
+    //               '<div class="eg_div"><img class="eg_img" src="img/t5_square.png"><img class="eg_img" src="img/t5_shape.png"><img class="eg_img" src="img/t5_circle.png"></div>',
+    //               '<p>Example tracing with score 1: </p>',
+    //         '<div class="eg_div"><img class="eg_img" src="img/t1_square.png"><img class="eg_img" src="img/t1_shape.png"><img class="eg_img" src="img/t1_circle.png"></div>'].join(' '),
+    //     'str3': ['<p> If you notice any of the following, this should reduce the score you assign to that tracing:</p>',
+    //         '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
+    //         '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),
+    //     'str4':'<p> A different sketch will appear on each trial. After a brief two-second delay, the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> <img class="rating_img" src="img/rating.png">',
+    //     'str5': "<p> When you finish, please click the submit button to finish the game. If a popup appears asking you if you are sure you want to leave the page, you must click YES to confirm that you want to leave the page. This will cause the HIT to submit. Let's begin!"
+    // };
+
+
     var instructionsHTML = {
-        'str1' : "<p> Here’s how the game will work: </p> <p> On each trial, you will see a tracing on top of a reference shape. The tracing is marked in red and the reference shape is in grey. Your goal is to rate how accurately the tracing matches the SHAPE and is aligned to the POSITION of the reference. The rating scale ranges from 1 (POOR) to 5 (EXCELLENT).</p>",
-        'str2': ["<p>Here’s how the game will work: </p> <p> On each trial, you will see a tracing on top of a reference shape. The tracing is marked in red and the reference shape is in grey. Your goal is to rate how accurately the tracing matches the SHAPE and is aligned to the POSITION of the reference. The rating scale ranges from 1 (POOR) to 5 (EXCELLENT). </p> <p> Here are some example tracings that should be given a score of 5 (EXCELLENT) and some tracings that should be given a score of 1 (POOR).</p>",
-            '<p>Example tracing with score 5: </p>',
-                  '<div class="eg_div"><img class="eg_img" src="img/t5_square.png"><img class="eg_img" src="img/t5_shape.png"><img class="eg_img" src="img/t5_circle.png"></div>',
-                  '<p>Example tracing with score 1: </p>',
-            '<div class="eg_div"><img class="eg_img" src="img/t1_square.png"><img class="eg_img" src="img/t1_shape.png"><img class="eg_img" src="img/t1_circle.png"></div>'].join(' '),
-        'str3': ['<p> If you notice any of the following, this should reduce the score you assign to that tracing:</p>',
-            '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
-            '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),
-        'str4':'<p> A different sketch will appear on each trial. After a brief two-second delay, the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> <img class="rating_img" src="img/rating.png">',
-        'str5': "<p> When you finish, please click the submit button to finish the game. If a popup appears asking you if you are sure you want to leave the page, you must click YES to confirm that you want to leave the page. This will cause the HIT to submit. Let's begin!"
-    };
+      'str1' : "<p> Welcome to CurioTower! </p>",
+      'str2': ['<p>During this task you will see many examples of block towers. We want to know what you think of them! </p> <p> On each trial, you will see an image of a block tower. Your goal is to rate how "interesting" it is. The rating scale ranges from 1 (COMPLETELY BORING) to 5 (EXTREMELY INTERESTING). </p> <p> Here are some example tracings that should be given a score of 5 (EXTREMELY INTERESTING) and some tracings that should be given a score of 1 (COMPLETELY BORING).</p>',
+          '<p>Example interesting tower with score 5: </p>',
+                '<div class="eg_div"><img class="eg_img" src="img/t5_square.png"><img class="eg_img" src="img/t5_shape.png"><img class="eg_img" src="img/t5_circle.png"></div>',
+                '<p>Example boring tower with score 1: </p>',
+          '<div class="eg_div"><img class="eg_img" src="img/t1_square.png"><img class="eg_img" src="img/t1_shape.png"><img class="eg_img" src="img/t1_circle.png"></div>'].join(' '),
+      // 'str3': ['<p> If you notice any of the following, this should reduce the score you assign to that tracing:</p>',
+      //     '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
+      //     '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),
+      'str3':'<p> A different tower will appear on each trial, but there may be a few repeats or different angles. After a brief two-second delay, the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> <img class="rating_img" src="img/rating.png">',
+      'str4': "<p> When you finish, please click the submit button to finish the task. If a popup appears asking you if you are sure you want to leave the page, you must click YES to confirm that you want to leave the page. This will cause the HIT to submit. Let's begin!"
+  };
 
     // add consent pages
     consentHTML = {
@@ -133,7 +148,7 @@ function setupGame() {
         instructionsHTML.str2,
         instructionsHTML.str3,
         instructionsHTML.str4,
-        instructionsHTML.str5,
+        // instructionsHTML.str5,
         consentHTML.str4,
         consentHTML.str5
       ],

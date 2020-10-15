@@ -8,3 +8,4 @@
 Tip: Include this line in the header of your `index.html` file, and then you will see that your data is a global variable now: 
 `<script src="data/example.json"></script>`
 6. `jspsych.css`: core jsPsych CSS stylesheet
+
