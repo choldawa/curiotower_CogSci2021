@@ -24,7 +24,8 @@ function setupGame() {
     var turkInfo = jsPsych.turk.turkInfo();
 
     // These are flags to control which trial types are included in the experiment
-    const includeIntro = true;    
+    const includeIntro = true;
+    const includeSurvey = true; 
     const includeGoodbye = true;
 
     var gameid = d.gameid;    
@@ -158,6 +159,15 @@ function setupGame() {
       delayTime: 2000,
     };
 
+	var survey_trial = {
+		      type: 'survey-text',
+		      questions: [
+			              {prompt: "What strategies did you use to rate the towers?"}, 
+			              {prompt: "What criteria mattered most when evaluating interstingness?"},
+			              {prompt: "What criteria did not matter when evaluating interstingness?"}
+			            ],
+		    };
+
     // add goodbye page
     var goodbye = {
       type: 'instructions',
@@ -175,7 +185,8 @@ function setupGame() {
 
     // add all experiment elements to trials array
     if(includeIntro) trials.unshift(introMsg);
-    if(includeGoodbye) trials.push(goodbye);
+   if(includeSurvey) trials.push(survey_trial);
+	  if(includeGoodbye) trials.push(goodbye);
 
 
     jsPsych.init({
