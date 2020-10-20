@@ -9,65 +9,65 @@ function sendData(data) {
 
 // Define trial object with boilerplate
 function Experiment() {
-    this.type = 'image-button-response',
+  this.type = 'image-button-response',
     this.dbname = 'curiotower';
-    this.colname = 'curiodrop'; 
-    this.iterationName = 'testing';
-    this.numTrials = 69; // TODO: dont hard code this, judy! infer it from the data
-    this.condition = _.sample([0,1])==1 ? 'interesting' : 'stable'; 
-    this.prompt = this.condition=='interesting' ? 'How interesting is this tower?' : 'How stable is this tower?';
+  this.colname = 'curiodrop';
+  this.iterationName = 'testing';
+  this.numTrials = 69; // TODO: dont hard code this, judy! infer it from the data
+  this.condition = _.sample([0, 1]) == 1 ? 'interesting' : 'stable';
+  this.prompt = this.condition == 'interesting' ? 'How interesting is this tower?' : 'How stable is this tower?';
 };
 
 function setupGame() {
-  socket.on('onConnected', function(d) {
+  socket.on('onConnected', function (d) {
     // Get workerId, etc. from URL (so that it can be sent to the server)
     var turkInfo = jsPsych.turk.turkInfo();
 
     // These are flags to control which trial types are included in the experiment
     const includeIntro = true;
-    const includeSurvey = true; 
+    const includeSurvey = true;
     const includeGoodbye = true;
 
-    var gameid = d.gameid;    
+    var gameid = d.gameid;
 
-   console.log('insetupgame');
+    console.log('insetupgame');
 
-    var main_on_start = function(trial) {
-        socket.removeListener('stimulus', oldCallback);
-        oldCallback = newCallback;
-        
-        var newCallback = function (d) {
-            trial.image_url = d.imageURL;
-            trial.stim_version = d.stim_version;
-            trial.towerID = d.towerID;
-	    trial.gameID = gameid
-        };
-        // call server for stims
-	console.log('inside mainonstart');
-        socket.emit('getStim', {gameID: gameid});
-        socket.on('stimulus', newCallback);
+    var main_on_start = function (trial) {
+      socket.removeListener('stimulus', oldCallback);
+      oldCallback = newCallback;
+
+      var newCallback = function (d) {
+        trial.image_url = d.imageURL;
+        trial.stim_version = d.stim_version;
+        trial.towerID = d.towerID;
+        trial.gameID = gameid
+      };
+      // call server for stims
+      console.log('inside mainonstart');
+      socket.emit('getStim', { gameID: gameid });
+      socket.on('stimulus', newCallback);
 
     };
 
     // at end of each trial save data locally and send data to server
-    var main_on_finish = function(data) {
+    var main_on_finish = function (data) {
       socket.emit('currentData', data);
       console.log('emitting data');
     }
 
-      
+
     // Now construct trials list    
     var exp = new Experiment;
-    var trials = _.map(_.range(exp.numTrials), function (n,i) {
+    var trials = _.map(_.range(exp.numTrials), function (n, i) {
       return _.extend({}, new Experiment, {
         trialNum: i,
-        on_finish: main_on_finish, 
+        on_finish: main_on_finish,
         on_start: main_on_start,
-        image_url: 'URL_PLACEHOLDER',        
+        image_url: 'URL_PLACEHOLDER',
         towerID: 'TOWERID_PLACEHOLDER',
       });
     });
-      console.log('trials',trials);
+    console.log('trials', trials);
 
 
     // var instructionsHTML = {
@@ -86,29 +86,29 @@ function setupGame() {
 
 
     var instructionsHTML = {
-      'str1' : "<p> Welcome to CurioTower! </p>",
+      'str1': "<p> Welcome to CurioTower! </p>",
       'str2': ['<p>During this task you will see many examples of block towers. We want to know what you think of them! </p> <p> On each trial, you will see an image of a block tower. Your goal is to rate how "interesting" it is. The rating scale ranges from 1 (COMPLETELY BORING) to 5 (EXTREMELY INTERESTING). </p> <p> Here are some example tracings that should be given a score of 5 (EXTREMELY INTERESTING) and some tracings that should be given a score of 1 (COMPLETELY BORING).</p>',
-          '<p>Example interesting tower with score 5: </p>',
-                '<div class="eg_div"><img class="eg_img" src="img/t5_square.png"><img class="eg_img" src="img/t5_shape.png"><img class="eg_img" src="img/t5_circle.png"></div>',
-                '<p>Example boring tower with score 1: </p>',
-          '<div class="eg_div"><img class="eg_img" src="img/t1_square.png"><img class="eg_img" src="img/t1_shape.png"><img class="eg_img" src="img/t1_circle.png"></div>'].join(' '),
+        '<p>Example interesting tower with score 5: </p>',
+        '<div class="eg_div"><img class="eg_img" src="img/t5_square.png"><img class="eg_img" src="img/t5_shape.png"><img class="eg_img" src="img/t5_circle.png"></div>',
+        '<p>Example boring tower with score 1: </p>',
+        '<div class="eg_div"><img class="eg_img" src="img/t1_square.png"><img class="eg_img" src="img/t1_shape.png"><img class="eg_img" src="img/t1_circle.png"></div>'].join(' '),
       // 'str3': ['<p> If you notice any of the following, this should reduce the score you assign to that tracing:</p>',
       //     '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
       //     '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),
-      'str3':'<p> A different tower will appear on each trial, but there may be a few repeats or different angles. After a brief two-second delay, the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> <img class="rating_img" src="img/rating.png">',
+      'str3': '<p> A different tower will appear on each trial, but there may be a few repeats or different angles. After a brief two-second delay, the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> <img class="rating_img" src="img/rating.png">',
       'str4': "<p> When you finish, please click the submit button to finish the task. If a popup appears asking you if you are sure you want to leave the page, you must click YES to confirm that you want to leave the page. This will cause the HIT to submit. Let's begin!"
-  };
+    };
 
     // add consent pages
     consentHTML = {
-      'str1' : '<p>In this HIT, you will view some towers produced by children. Your task is \
+      'str1': '<p>In this HIT, you will view some towers produced by children. Your task is \
       to rate each tower on a 5-point scale. </p>',
-      'str2' : '<p> We expect this hit to take approximately 5-8 minutes to complete, \
+      'str2': '<p> We expect this hit to take approximately 5-8 minutes to complete, \
       including the time it takes to read instructions.</p>',
-      'str3' : "<p>If you encounter a problem or error, send us an email \
+      'str3': "<p>If you encounter a problem or error, send us an email \
       (cogtoolslab.requester@gmail.com) and we will make sure you're compensated \
       for your time! Please pay attention and do your best! Thank you!</p><p> Note: \
-        We recommend using Chrome. We have not tested this HIT in other browsers.</p>",      
+        We recommend using Chrome. We have not tested this HIT in other browsers.</p>",
       'str4': ["<u><p id='legal'>Consent to Participate</p></u>",
         "<p id='legal'>By completing this HIT, you are participating in a \
       study being performed by cognitive scientists in the UC San Diego \
@@ -143,7 +143,7 @@ function setupGame() {
       type: 'instructions',
       pages: [
         consentHTML.str1,
-        consentHTML.str2,      
+        consentHTML.str2,
         consentHTML.str3,
         instructionsHTML.str1,
         instructionsHTML.str2,
@@ -155,18 +155,18 @@ function setupGame() {
       ],
       show_clickable_nav: true,
       allow_backward: true,
-      delay: false, 
+      delay: false,
       delayTime: 2000,
     };
 
-	var survey_trial = {
-		      type: 'survey-text',
-		      questions: [
-			              {prompt: "What strategies did you use to rate the towers?"}, 
-			              {prompt: "What criteria mattered most when evaluating interstingness?"},
-			              {prompt: "What criteria did not matter when evaluating interstingness?"}
-			            ],
-		    };
+    var survey_trial = {
+      type: 'survey-text',
+      questions: [
+        { prompt: "What strategies did you use to rate the towers?" },
+        { prompt: "What criteria mattered most when evaluating interstingness?" },
+        { prompt: "What criteria did not matter when evaluating interstingness?" }
+      ],
+    };
 
     // add goodbye page
     var goodbye = {
@@ -177,16 +177,16 @@ function setupGame() {
       ],
       show_clickable_nav: true,
       allow_backward: false,
-      delay: false, 
-      on_finish: function() {
+      delay: false,
+      on_finish: function () {
         sendData();
       }
     };
 
     // add all experiment elements to trials array
-    if(includeIntro) trials.unshift(introMsg);
-   if(includeSurvey) trials.push(survey_trial);
-	  if(includeGoodbye) trials.push(goodbye);
+    if (includeIntro) trials.unshift(introMsg);
+    if (includeSurvey) trials.push(survey_trial);
+    if (includeGoodbye) trials.push(goodbye);
 
 
     jsPsych.init({
