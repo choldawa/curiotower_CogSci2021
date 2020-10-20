@@ -10,10 +10,10 @@ function sendData(data) {
 // Define trial object with boilerplate
 function Experiment() {
   this.type = 'image-button-response',
-    this.dbname = 'curiotower';
+  this.dbname = 'curiotower';
   this.colname = 'curiodrop';
   this.iterationName = 'testing';
-  this.numTrials = 69; // TODO: dont hard code this, judy! infer it from the data
+  this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
   this.condition = _.sample([0, 1]) == 1 ? 'interesting' : 'stable';
   this.prompt = this.condition == 'interesting' ? 'How interesting is this tower?' : 'How stable is this tower?';
 };
@@ -57,9 +57,9 @@ function setupGame() {
 
 
     // Now construct trials list    
-    var exp = new Experiment;
-    var trials = _.map(_.range(exp.numTrials), function (n, i) {
-      return _.extend({}, new Experiment, {
+    var experimentInstance = new Experiment;
+    var trials = _.map(_.range(experimentInstance.numTrials), function (n, i) {
+      return _.extend({}, experimentInstance, {
         trialNum: i,
         on_finish: main_on_finish,
         on_start: main_on_start,
