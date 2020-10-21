@@ -147,12 +147,38 @@ function setupGame() {
       delayTime: 2000,
     };
 
-    var survey_trial = {
+
+    var exitSurveyChoice = {
+      type: 'survey-multi-choice',
+      preamble: "<strong><u>Survey</u></strong>",
+      questions: [{
+          prompt: "What is your sex?",
+          name: "participantSex",
+          horizontal: true,
+          options: ["Male", "Female", "Neither/Other/Do Not Wish To Say"],
+          required: true
+        },
+        {
+          prompt: "Did you encounter any technical difficulties while completing this study? \
+            This could include: images were glitchy (e.g., did not load), ability to click \
+            was glitchy, or sections of the study did \
+            not load properly.",
+          name: "technicalDifficultiesBinary",
+          horizontal: true,
+          options: ["Yes", "No"],
+          required: true
+        }
+      ],
+    };
+
+    var exitSurveyText = {
       type: 'survey-text',
       questions: [
-        { prompt: "What strategies did you use to rate the towers?" },
-        { prompt: "What criteria mattered most when evaluating interstingness?" },
-        { prompt: "What criteria did not matter when evaluating interstingness?" }
+        { prompt: "Please enter your age:"},
+        { prompt: "What strategies did you use to rate the towers?" , rows: 5, columns: 40},
+        { prompt: "What criteria mattered most when evaluating "+experimentInstance.condition+"?" , rows: 5, columns: 40},
+        { prompt: "What criteria did not matter when evaluating "+experimentInstance.condition+"?" , rows: 5, columns: 40},
+        { prompt: "Any final thoughts?" , rows: 5, columns: 40}
       ],
     };
 
@@ -173,7 +199,8 @@ function setupGame() {
 
     // add all experiment elements to trials array
     if (includeIntro) trials.unshift(introMsg);
-    if (includeSurvey) trials.push(survey_trial);
+    if (includeSurvey) trials.push(exitSurveyChoice);
+    if (includeSurvey) trials.push(exitSurveyText);
     if (includeGoodbye) trials.push(goodbye);
 
 
