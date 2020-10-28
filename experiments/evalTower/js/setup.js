@@ -10,12 +10,12 @@ function sendData(data) {
 // Define trial object with boilerplate
 function Experiment() {
   this.type = 'image-button-response',
-  this.dbname = 'curiotower';
+    this.dbname = 'curiotower';
   this.colname = 'curiodrop';
   this.iterationName = 'testing';
   this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
   this.condition = _.sample([0, 1]) == 1 ? 'interesting' : 'stable';
-  this.prompt = this.condition == 'interesting' ? 'How interesting is this tower?' : 'How stable is this tower?';
+  this.prompt = this.condition == 'interesting' ? 'How interesting is this?' : 'How stable is this?';
 };
 
 function setupGame() {
@@ -73,30 +73,30 @@ function setupGame() {
 
 
     var instructionsHTML = {
-      'str1': "<p> Welcome to CurioTower! </p>",
-      'str2': ['<p>During this task you will see many examples of block towers. We want to know what you think of them! </p> <p> On each trial, you will see an image of a block tower. Your goal is to rate how '+experimentInstance.condition+' it is. The rating scale ranges from 1 (not ' + experimentInstance.condition+ ' at all) to 5 (extremely '+ experimentInstance.condition+'). </p> <p> Here are some example towers that should be given a score of 5 and some towers that should be given a score of 1.</p>',
-        '<p>Example' + experimentInstance.condition+ ' tower with score 5: </p>',
-        '<div class="eg_div"><img class="eg_img" src="assets/example-'+experimentInstance.condition+'.jpg"></div>',
-        '<p>Example' + experimentInstance.condition+ ' tower with score 1: </p>',
-        '<div class="eg_div"><img class="eg_img" src="assets/example-not-'+experimentInstance.condition+'.jpg"></div>'].join(' '),
+      'str1': ['<p> On each trial, you will see an image of a block tower. Your goal is to rate how '+ experimentInstance.condition + ' it is. \
+      The rating scale ranges from 1 (not ' + experimentInstance.condition + ' at all) to 5 (extremely ' + experimentInstance.condition + '). </p> <p>Here are \
+      some example towers that should be given a score of 5 and some towers that should be given a score of 1.</p>',
+      '<p>Example ' + experimentInstance.condition + ' tower with score 5: </p>',
+      '<div class="eg_div"><img class="eg_img" src="assets/example-' + experimentInstance.condition + '.jpg" width="200" height="200"></div>',
+      '<p>Example ' + experimentInstance.condition + ' tower with score 1: </p>',
+      '<div class="eg_div"><img class="eg_img" src="assets/example-not-' + experimentInstance.condition + '.jpg"></div>'].join(' '),
       // 'str3': ['<p> If you notice any of the following, this should reduce the score you assign to that tracing:</p>',
       //     '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
       //     '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),
-      'str3': '<p> A different tower will appear on each trial, but there may be a few repeats or different angles. After a brief two-second delay, the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> <img class="rating_img" src="img/rating.png">',
-      'str4': "<p> When you finish, please click the submit button to finish the task. If a popup appears asking you if you are sure you want to leave the page, you must click YES to confirm that you want to leave the page. This will cause the HIT to submit. Let's begin!"
+      'str2': '<p>After a brief two-second delay, \
+      the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> \
+      <img class="rating_img" src="img/rating.png">',
+      'str3': "<p> When you finish, please click the submit button to finish the task. If a popup appears asking you if you are sure you want to leave the page, \
+      you must click YES to confirm that you want to leave the page. This will cause the study to submit. Let's begin!"
     };
 
     // add consent pages
     consentHTML = {
-      'str1': '<p>In this HIT, you will view some towers produced by children. Your task is \
-      to rate each tower on a 5-point scale. </p>',
-      'str2': '<p> We expect this hit to take approximately 5-8 minutes to complete, \
-      including the time it takes to read instructions.</p>',
-      'str3': "<p>If you encounter a problem or error, send us an email \
-      (cogtoolslab.requester@gmail.com) and we will make sure you're compensated \
-      for your time! Please pay attention and do your best! Thank you!</p><p> Note: \
-        We recommend using Chrome. We have not tested this HIT in other browsers.</p>",
-      'str4': ["<u><p id='legal'>Consent to Participate</p></u>",
+      'str1': '<p>We are scientists interested in understanding how children learn through play. In a previous study, \
+      we gave children a set of plastic shapes which they could arrange in any way they liked. \
+      In this study, you will be viewing some of the arrangements they created and making judgments about them. \
+      Your task is to rate each tower on a 5-point scale. </p>',
+      'str2': ["<u><p id='legal'>Consent to Participate</p></u>",
         "<p id='legal'>By completing this HIT, you are participating in a \
       study being performed by cognitive scientists in the UC San Diego \
       Department of Psychology. The purpose of this research is to find out\
@@ -112,7 +112,7 @@ function setupGame() {
       provide will not be shared in association with any personally identifying \
       information.</p>"
       ].join(' '),
-      'str5': ["<u><p id='legal'>Consent to Participate</p></u>",
+      'str3': ["<u><p id='legal'>Consent to Participate</p></u>",
         "<p> If you have questions about this research, please contact the \
       researchers by sending an email to \
       <b><a href='mailto://cogtoolslab.requester@gmail.com'>cogtoolslab.requester@gmail.com</a></b>. \
@@ -122,25 +122,31 @@ function setupGame() {
       you can discuss with the researchers, please contact the UC San Diego \
       Institutional Review Board.</p><p>Click 'Next' to continue \
       participating in this HIT.</p>"
-      ].join(' ')
+      ].join(' '),
+      'str4': '<p> We expect this hit to take approximately 5-8 minutes to complete, \
+      including the time it takes to read instructions.</p>',
+      'str5': "<p>If you encounter a problem or error, send us an email \
+      (cogtoolslab.requester@gmail.com) and we will make sure you're compensated \
+      for your time! Please pay attention and do your best! Thank you!</p><p> Note: \
+        We recommend using Chrome. We have not tested this study in other browsers.</p>"
+
     };
 
     //combine instructions and consent
     var introMsg = {
       type: 'instructions',
-        pages: [
-          consentHTML.str1,
-          consentHTML.str2,
-          consentHTML.str3,
-          instructionsHTML.str1,
-          instructionsHTML.str2,
-          instructionsHTML.str3,
-          instructionsHTML.str4,
-          // instructionsHTML.str5,
-          consentHTML.str4,
-          consentHTML.str5
-        ],
-      
+      pages: [
+        consentHTML.str1,
+        consentHTML.str2,
+        consentHTML.str3,
+        instructionsHTML.str1,
+        instructionsHTML.str2,
+        instructionsHTML.str3,
+        consentHTML.str4,
+        consentHTML.str5,
+        // instructionsHTML.str5,
+      ],
+
       show_clickable_nav: true,
       allow_backward: true,
       delay: false,
@@ -152,33 +158,33 @@ function setupGame() {
       type: 'survey-multi-choice',
       preamble: "<strong><u>Survey</u></strong>",
       questions: [{
-          prompt: "What is your sex?",
-          name: "participantSex",
-          horizontal: true,
-          options: ["Male", "Female", "Neither/Other/Do Not Wish To Say"],
-          required: true
-        },
-        {
-          prompt: "Did you encounter any technical difficulties while completing this study? \
+        prompt: "What is your sex?",
+        name: "participantSex",
+        horizontal: true,
+        options: ["Male", "Female", "Neither/Other/Do Not Wish To Say"],
+        required: true
+      },
+      {
+        prompt: "Did you encounter any technical difficulties while completing this study? \
             This could include: images were glitchy (e.g., did not load), ability to click \
             was glitchy, or sections of the study did \
             not load properly.",
-          name: "technicalDifficultiesBinary",
-          horizontal: true,
-          options: ["Yes", "No"],
-          required: true
-        }
+        name: "technicalDifficultiesBinary",
+        horizontal: true,
+        options: ["Yes", "No"],
+        required: true
+      }
       ],
     };
 
     var exitSurveyText = {
       type: 'survey-text',
       questions: [
-        { prompt: "Please enter your age:"},
-        { prompt: "What strategies did you use to rate the towers?" , rows: 5, columns: 40},
-        { prompt: "What criteria mattered most when evaluating "+experimentInstance.condition+"?" , rows: 5, columns: 40},
-        { prompt: "What criteria did not matter when evaluating "+experimentInstance.condition+"?" , rows: 5, columns: 40},
-        { prompt: "Any final thoughts?" , rows: 5, columns: 40}
+        { prompt: "Please enter your age:" },
+        { prompt: "What strategies did you use to rate the towers?", rows: 5, columns: 40 },
+        { prompt: "What criteria mattered most when evaluating " + experimentInstance.condition + "?", rows: 5, columns: 40 },
+        { prompt: "What criteria did not matter when evaluating " + experimentInstance.condition + "?", rows: 5, columns: 40 },
+        { prompt: "Any final thoughts?", rows: 5, columns: 40 }
       ],
     };
 
