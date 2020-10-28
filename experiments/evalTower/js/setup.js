@@ -84,8 +84,7 @@ function setupGame() {
       //     '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
       //     '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),
       'str2': '<p>After a brief two-second delay, \
-      the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p> \
-      <img class="rating_img" src="img/rating.png">',
+      the buttons will become active (dark gray) so you can submit your rating. Please take your time to provide as accurate of a rating as you can.</p> </p>',
       'str3': "<p> When you finish, please click the submit button to finish the task. If a popup appears asking you if you are sure you want to leave the page, \
       you must click YES to confirm that you want to leave the page. This will cause the study to submit. Let's begin!"
     };
@@ -97,7 +96,7 @@ function setupGame() {
       In this study, you will be viewing some of the arrangements they created and making judgments about them. \
       Your task is to rate each tower on a 5-point scale. </p>',
       'str2': ["<u><p id='legal'>Consent to Participate</p></u>",
-        "<p id='legal'>By completing this HIT, you are participating in a \
+        "<p id='legal'>By completing this study, you are participating in a \
       study being performed by cognitive scientists in the UC San Diego \
       Department of Psychology. The purpose of this research is to find out\
       how people understand visual information. \
@@ -121,9 +120,9 @@ function setupGame() {
       rights as a research subject, or if problems arise which you do not feel \
       you can discuss with the researchers, please contact the UC San Diego \
       Institutional Review Board.</p><p>Click 'Next' to continue \
-      participating in this HIT.</p>"
+      participating in this study.</p>"
       ].join(' '),
-      'str4': '<p> We expect this hit to take approximately 5-8 minutes to complete, \
+      'str4': '<p> We expect this study to take approximately 5-8 minutes to complete, \
       including the time it takes to read instructions.</p>',
       'str5': "<p>If you encounter a problem or error, send us an email \
       (cogtoolslab.requester@gmail.com) and we will make sure you're compensated \
@@ -193,7 +192,7 @@ function setupGame() {
       type: 'instructions',
       pages: [
         'Congrats! You are all done. Thanks for participating in our game! \
-        Click NEXT to submit this HIT.'
+        Click NEXT to submit this study.'
       ],
       show_clickable_nav: true,
       allow_backward: false,
