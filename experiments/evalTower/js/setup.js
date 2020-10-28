@@ -73,13 +73,19 @@ function setupGame() {
 
 
     var instructionsHTML = {
-      'str1': ['<p> On each trial, you will see an image of a block tower. Your goal is to rate how '+ experimentInstance.condition + ' it is. \
+      'str1': ['<p> On each trial, you will see an image of a block structure. Your goal is to rate how '+ experimentInstance.condition + ' it is. \
       The rating scale ranges from 1 (not ' + experimentInstance.condition + ' at all) to 5 (extremely ' + experimentInstance.condition + '). </p> <p>Here are \
       some example towers that should be given a score of 1 and some towers that should be given a score of 5.</p>',
-      '<p>Example ' + experimentInstance.condition + ' tower with score 1: </p>',
-      '<div class="eg_div"><img class="eg_img" src="assets/example-not-' + experimentInstance.condition + '.jpg" width="200" height="200"></div>',
-      '<p>Example ' + experimentInstance.condition + ' tower with score 5: </p>',
-      '<div class="eg_div"><img class="eg_img" src="assets/example-' + experimentInstance.condition + '.jpg" width="200" height="200"></div>'].join(' '),
+      '<div class="example_images">', 
+        '<div class="example_image" style="float:left;">', 
+          '<p style="text-align:center;">Example tower with ' + experimentInstance.condition + ' score of 1: </p>',
+          '<div class="eg_div"><img class="eg_img" src="assets/example-not-' + experimentInstance.condition + '.jpg" width="200" height="200"></div>',
+        '</div>',
+        '<div class="example_image" style="float:right;">',
+          '<p style="text-align:center;">Example tower with ' + experimentInstance.condition + ' score of 5: </p>',
+          '<div class="eg_div"><img class="eg_img" src="assets/example-' + experimentInstance.condition + '.jpg" width="200" height="200"></div>',
+        '</div>',
+      '</div>'].join(' '),
       // 'str3': ['<p> If you notice any of the following, this should reduce the score you assign to that tracing:</p>',
       //     '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
       //     '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),

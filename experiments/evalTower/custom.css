@@ -18,6 +18,16 @@
     margin-left:4vw;
 }
 
+/* .eg_div{
+width: 49%;
+} */
+.example_image{
+  width:49%; 
+  margin: auto;
+  display:inline-block;
+  text-align:center;
+}
+
 .jspsych-display-element {
   display: flex;
   flex-direction: column;
