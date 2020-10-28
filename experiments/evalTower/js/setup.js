@@ -79,7 +79,7 @@ function setupGame() {
       '<p>Example ' + experimentInstance.condition + ' tower with score 5: </p>',
       '<div class="eg_div"><img class="eg_img" src="assets/example-' + experimentInstance.condition + '.jpg" width="200" height="200"></div>',
       '<p>Example ' + experimentInstance.condition + ' tower with score 1: </p>',
-      '<div class="eg_div"><img class="eg_img" src="assets/example-not-' + experimentInstance.condition + '.jpg"></div>'].join(' '),
+      '<div class="eg_div"><img class="eg_img" src="assets/example-not-' + experimentInstance.condition + '.jpg" width="200" height="200"></div>'].join(' '),
       // 'str3': ['<p> If you notice any of the following, this should reduce the score you assign to that tracing:</p>',
       //     '<ul><li>Adding extra objects to the tracing (e.g. scribbles, heart, flower, smiling faces, text)<img class="notice_img" src="img/extra.png"></li>',
       //     '<li>Painting or "filling in" the reference shape, rather than tracing its outline<img class="notice_img" src="img/paint.png"></li></ul>',].join(' '),
