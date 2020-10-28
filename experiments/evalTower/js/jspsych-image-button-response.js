@@ -43,14 +43,14 @@ jsPsych.plugins["image-button-response"] = (function() {
             upper_bound:{
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'upper_bound',
-                default: 'coolest',
+                default: 'extremely',
                 array: true,
                 description: 'The upper bound label of the rating'
             },
             lower_bound:{
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'lower_bound',
-                default: 'boring',
+                default: 'not at all',
                 array: true,
                 description: 'The lower bound label of the rating'
             },
