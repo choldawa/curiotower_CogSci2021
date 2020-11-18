@@ -80,7 +80,10 @@ io.on('connection', function (socket) {
 	sendStim(socket, data);
     });  
 
+   
+
 });
+
 
 var serveFile = function(req, res) {
   var fileName = req.params[0];
@@ -105,7 +108,7 @@ var handleInvalidID = function (socket) {
 function checkPreviousParticipant(workerId, callback) {
   var p = { 'workerId': workerId };
   var postData = {
-    dbname: 'causaldraw',
+    dbname: 'curiotower',
     query: p,
     projection: { '_id': 1 }
   };
@@ -141,7 +144,12 @@ function sendStim(socket, data) {
     }
   }, (error, res, body) => {
     if (!error && res.statusCode === 200) {
-      socket.emit('stimulus', body);     
+      var packet = {
+        gameid: gameid,
+        meta: body.meta,
+        version: body.stim_version
+      };
+      socket.emit('stimulus', packet);     
     } else {
       console.log(`error getting stims: ${error} ${body}`);
       console.log(`falling back to local stimList`);
@@ -149,6 +157,32 @@ function sendStim(socket, data) {
     }
   });
 } // 
+
+// function initializeWithTrials(socket) {
+//   var gameid = UUID();
+//   var colname = 'causaldraw_intervention';
+//   sendPostRequest('http://localhost:6000/db/getbatchstims', {
+//     json: {
+//       dbname: 'stimuli',
+//       colname: colname,
+//       //numTrials: 1,
+//       gameid: gameid
+//     }
+//   }, (error, res, body) => {
+//     if (!error && res.statusCode === 200) {
+//       // send trial list (and id) to client
+//       var packet = {
+//         gameid: gameid,
+//         meta: body.meta,
+//         version: body.experimentVersion
+//       };
+//       socket.emit('onConnected', packet);
+//     } else {
+//       console.log(`error getting stims: ${error} ${body}`);
+//     }
+//   });
+// }
+
 
 var UUID = function() {
   var baseName = (Math.floor(Math.random() * 10) + '' +

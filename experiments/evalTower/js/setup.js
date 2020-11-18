@@ -11,17 +11,40 @@ function sendData(data) {
 function Experiment() {
   this.type = 'image-button-response',
     this.dbname = 'curiotower';
-  this.colname = 'curiodrop';
+  this.colname = 'curiotower_curiodrop';
   this.iterationName = 'testing';
   this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
   this.condition = _.sample([0, 1]) == 1 ? 'interesting' : 'stable';
   this.prompt = this.condition == 'interesting' ? 'How interesting is this?' : 'How stable is this?';
+
+  // // Create raw trials list
+  // this.trials = _.map(_.shuffle(this.categories), function (n,i) {
+  //   return trial = _.extend({}, new Experiment, { 
+  //       category: n, 
+  //       trialNum: i,
+  //       numTrials: this.numTrials,
+  //       condition: conditionArray[i], 
+  //       imageURL: makeURL(n, this.numItemsPerCategory)        
+  //       }
+  //     )
+  // }.bind(this))
+
+  // function makeURL(category, numItems) {
+  //   return 'https://photodraw.s3.amazonaws.com/'+ category + '_' + (Math.floor(Math.random() * numItems) + 1) + '.png';
+  // }  
+
 };
 
 function setupGame() {
   socket.on('onConnected', function (d) {
+
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var prolificID = urlParams.get('PROLIFIC_PID')   // ID unique to the participant
+    var studyID = urlParams.get('STUDY_ID')          // ID unique to the study
+    var sessionID = urlParams.get('SESSION_ID')      // ID unique to the particular submission
     // Get workerId, etc. from URL (so that it can be sent to the server)
-    var turkInfo = jsPsych.turk.turkInfo();
+    //var turkInfo = jsPsych.turk.turkInfo();
 
     // These are flags to control which trial types are included in the experiment
     const includeIntro = true;
@@ -29,7 +52,10 @@ function setupGame() {
     const includeGoodbye = true;
 
     var gameid = d.gameid;
-
+    var meta = d.meta; 
+    console.log('meta', meta);
+    
+    
     console.log('insetupgame');
 
     var main_on_start = function (trial) {
@@ -67,6 +93,10 @@ function setupGame() {
         towerID: 'TOWERID_PLACEHOLDER',
       });
     });
+    // var trials = _.flatten(_.map(session.trials, function(trialData, i) {
+    //   var trial = _.extend({}, additionalInfo, trialData, {trialNum: i});
+    //   return trial;
+    // }));
     console.log('trials', trials);
 
 
@@ -198,7 +228,8 @@ function setupGame() {
       type: 'instructions',
       pages: [
         'Congrats! You are all done. Thanks for participating in our game! \
-        Click NEXT to submit this study.'
+        Click NEXT to submit this study.',
+        'Thanks for participating. The study has been submitted. You may now close your browser.'
       ],
       show_clickable_nav: true,
       allow_backward: false,
@@ -206,6 +237,8 @@ function setupGame() {
       on_finish: function () {
         sendData();
       }
+      //change the link below to your prolific-provided URL
+      window.open("https://app.prolific.co/submissions/complete?cc=35C76043","_self")
     };
 
     // add all experiment elements to trials array
