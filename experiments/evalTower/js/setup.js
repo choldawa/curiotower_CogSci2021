@@ -1,12 +1,3 @@
-var oldCallback;
-
-function sendData(data) {
-  console.log('sending data to mturk');
-  jsPsych.turk.submitToTurk({
-    'score': 0   //this is a dummy placeholder
-  });
-}
-
 // Define trial object with boilerplate
 function Experiment() {
   this.type = 'image-button-response',
@@ -55,24 +46,9 @@ function setupGame() {
     var meta = d.meta; 
     console.log('meta', meta);
     
-    
-    console.log('insetupgame');
-
+      
     var main_on_start = function (trial) {
-      socket.removeListener('stimulus', oldCallback);
-      oldCallback = newCallback;
-
-      var newCallback = function (d) {
-        trial.image_url = d.imageURL;
-        trial.stim_version = d.stim_version;
-        trial.towerID = d.towerID;
-        trial.gameID = gameid
-      };
-      // call server for stims
-      console.log('inside mainonstart');
-      socket.emit('getStim', { gameID: gameid });
-      socket.on('stimulus', newCallback);
-
+      console.log('start of trial');
     };
 
     // at end of each trial save data locally and send data to server
@@ -80,7 +56,6 @@ function setupGame() {
       socket.emit('currentData', data);
       console.log('emitting data');
     }
-
 
     // Now construct trials list    
     var experimentInstance = new Experiment;
@@ -93,6 +68,7 @@ function setupGame() {
         towerID: 'TOWERID_PLACEHOLDER',
       });
     });
+    
     // var trials = _.flatten(_.map(session.trials, function(trialData, i) {
     //   var trial = _.extend({}, additionalInfo, trialData, {trialNum: i});
     //   return trial;
@@ -234,9 +210,6 @@ function setupGame() {
       show_clickable_nav: true,
       allow_backward: false,
       delay: false,
-      on_finish: function () {
-        sendData();
-      }
       //change the link below to your prolific-provided URL
       window.open("https://app.prolific.co/submissions/complete?cc=35C76043","_self")
     };
