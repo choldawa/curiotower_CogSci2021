@@ -3,7 +3,7 @@ function Experiment() {
   this.type = 'image-button-response',
   this.dbname = 'curiotower';
   this.colname = 'curiotower_curiodrop';
-  this.iterationName = 'testing';
+  this.iterationName = 'testing-new-meta';
   this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
   this.condition = _.sample([0, 1]) == 1 ? 'interesting' : 'stable';
   this.prompt = this.condition == 'interesting' ? 'How interesting is this?' : 'How stable is this?';
@@ -26,6 +26,7 @@ function setupGame() {
     const includeGoodbye = true;
 
     var gameid = d.gameid;
+    var meta = _.shuffle(d.meta);
     console.log('meta', meta);    
       
     var main_on_start = function (trial) {
@@ -45,7 +46,6 @@ function setupGame() {
     var trials = _.map(meta, function(n,i) {
       return _.extend({}, experimentInstance, n, {
         trialNum: i,
-        prolificID: prolificiD,
         prolificID:  prolificID,
         studyID: studyID, 
         sessionID: sessionID,
@@ -206,7 +206,7 @@ function setupGame() {
       allow_backward: false,
       delay: false,
       //change the link below to your prolific-provided URL
-      window.open("https://app.prolific.co/submissions/complete?cc=35C76043","_self")
+      // window.open("https://app.prolific.co/submissions/complete?cc=35C76043","_self")
     };
 
     // add all experiment elements to trials array
