@@ -7,23 +7,6 @@ function Experiment() {
   this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
   this.condition = _.sample([0, 1]) == 1 ? 'interesting' : 'stable';
   this.prompt = this.condition == 'interesting' ? 'How interesting is this?' : 'How stable is this?';
-
-  // // Create raw trials list
-  // this.trials = _.map(_.shuffle(this.categories), function (n,i) {
-  //   return trial = _.extend({}, new Experiment, { 
-  //       category: n, 
-  //       trialNum: i,
-  //       numTrials: this.numTrials,
-  //       condition: conditionArray[i], 
-  //       imageURL: makeURL(n, this.numItemsPerCategory)        
-  //       }
-  //     )
-  // }.bind(this))
-
-  // function makeURL(category, numItems) {
-  //   return 'https://photodraw.s3.amazonaws.com/'+ category + '_' + (Math.floor(Math.random() * numItems) + 1) + '.png';
-  // }  
-
 };
 
 function setupGame() {
@@ -44,8 +27,7 @@ function setupGame() {
 
     var gameid = d.gameid;
     var meta = d.meta; 
-    console.log('meta', meta);
-    
+    console.log('meta', meta);    
       
     var main_on_start = function (trial) {
       console.log('start of trial');
@@ -68,7 +50,7 @@ function setupGame() {
         towerID: 'TOWERID_PLACEHOLDER',
       });
     });
-    
+
     // var trials = _.flatten(_.map(session.trials, function(trialData, i) {
     //   var trial = _.extend({}, additionalInfo, trialData, {trialNum: i});
     //   return trial;
