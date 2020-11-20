@@ -1,3 +1,10 @@
+function sendData(data) {
+  console.log('sending data to mturk');
+  jsPsych.turk.submitToTurk({
+    'score': 0 //this is a dummy placeholder
+  });
+}
+
 // Define trial object with boilerplate
 function Experiment() {
   this.type = 'image-button-response',
@@ -46,6 +53,7 @@ function setupGame() {
     var trials = _.map(meta, function(n,i) {
       return _.extend({}, experimentInstance, n, {
         trialNum: i,
+        on_finish: main_on_finish,
         prolificID:  prolificID,
         studyID: studyID, 
         sessionID: sessionID,
@@ -205,6 +213,10 @@ function setupGame() {
       show_clickable_nav: true,
       allow_backward: false,
       delay: false,
+      on_finish: function() {
+        // $(".confetti").remove();
+        sendData();
+      }
       //change the link below to your prolific-provided URL
       // window.open("https://app.prolific.co/submissions/complete?cc=35C76043","_self")
     };
