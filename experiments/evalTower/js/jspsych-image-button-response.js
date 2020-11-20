@@ -226,17 +226,17 @@ jsPsych.plugins["image-button-response"] = (function() {
 
         // function to end trial when it is time
         function end_trial() {
-	       var turkInfo = jsPsych.turk.turkInfo();
+	       // var turkInfo = jsPsych.turk.turkInfo();
 	    
             // data saving
             var trial_data = _.extend({},trial,{
                 reaction_time: response.rt,
                 button_pressed: response.button,
                 startTrialTime: start_time,
-                endTrialTime: Date.now(),
-                workerId: turkInfo.workerId,
-                hitID: turkInfo.hitId,
-                aID: turkInfo.assignmentId
+                endTrialTime: Date.now()
+                // workerId: turkInfo.workerId,
+                // hitID: turkInfo.hitId,
+                // aID: turkInfo.assignmentId
             });
 
             // clear the HTML in the display element
