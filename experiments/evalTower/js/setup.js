@@ -26,7 +26,6 @@ function setupGame() {
     const includeGoodbye = true;
 
     var gameid = d.gameid;
-    var meta = d.meta; 
     console.log('meta', meta);    
       
     var main_on_start = function (trial) {
@@ -41,15 +40,29 @@ function setupGame() {
 
     // Now construct trials list    
     var experimentInstance = new Experiment;
-    var trials = _.map(_.range(experimentInstance.numTrials), function (n, i) {
-      return _.extend({}, experimentInstance, {
+    
+    // loop over value in meta, then append to each the experiment instance info and the prolific, and trial num
+    var trials = _.map(meta, function(n,i) {
+      return _.extend({}, experimentInstance, n, {
         trialNum: i,
-        on_finish: main_on_finish,
-        on_start: main_on_start,
-        image_url: 'URL_PLACEHOLDER',
-        towerID: 'TOWERID_PLACEHOLDER',
+        prolificID: prolificiD,
+        prolificID:  prolificID,
+        studyID: studyID, 
+        sessionID: sessionID,
+        gameID: gameid
       });
     });
+
+
+    // var trials = _.map(_.range(experimentInstance.numTrials), function (n, i) {
+    //   return _.extend({}, experimentInstance, {
+    //     trialNum: i,
+    //     on_finish: main_on_finish,
+    //     on_start: main_on_start,
+    //     image_url: 'URL_PLACEHOLDER',
+    //     towerID: 'TOWERID_PLACEHOLDER',
+    //   });
+    // });
 
     // var trials = _.flatten(_.map(session.trials, function(trialData, i) {
     //   var trial = _.extend({}, additionalInfo, trialData, {trialNum: i});
