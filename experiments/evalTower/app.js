@@ -15,8 +15,6 @@ var
 ////////// EXPERIMENT GLOBAL PARAMS //////////
 
 var gameport;
-var researchers = ['A4SSYO0HDVD4E', 'A9AHPCS83TFFE'];
-var blockResearcher = false;
 
 if(argv.gameport) {
   gameport = argv.gameport;
@@ -46,44 +44,17 @@ app.get('/*', (req, res) => {
 
 io.on('connection', function (socket) {
 
-  // Recover query string information and set condition
-  var gameid = UUID();
-  var hs = socket.request;  
-  var query = require('url').parse(hs.headers.referer, true).query;
-  var id = query.workerId;
-  var isResearcher = _.includes(researchers, id);
+  // set up trial list for participant
+  initializeWithTrials(socket);
 
-  var packet = {
-    gameid: gameid,    
-  };  
-
-  if (!id || isResearcher && !blockResearcher){
-    socket.emit('onConnected', packet); 
-  } else if (!valid_id(id)) {
-    console.log('invalid id, blocked');
-  } else {
-    checkPreviousParticipant(id, (exists) => {
-      return exists ? handleDuplicate(socket) : initializeWithTrials(socket);
-    });
-  }
-
-    // write data to db upon getting current data
-    socket.on('currentData', function(data) {
+  // write data to db upon getting current data
+  socket.on('currentData', function(data) {
 	console.log('currentData received: ' + JSON.stringify(data));
 	// Increment games list in mongo here
-	writeDataToMongo(data);
+	writeDataToMongo(data); 
     });
 
-    // got request for stim
-    socket.on('getStim', function(data) {
-	console.log('got a stim request');
-	sendStim(socket, data);
-    });  
-
-   
-
 });
-
 
 var serveFile = function(req, res) {
   var fileName = req.params[0];
@@ -91,98 +62,30 @@ var serveFile = function(req, res) {
   return res.sendFile(fileName, {root: __dirname});
 };
 
-var handleDuplicate = function (socket) {
-  console.log("duplicate id: blocking request");
-  socket.emit('redirect', '/duplicate.html');
-};
-
-var valid_id = function (id) {
-  return (id.length <= 15 && id.length >= 12) || id.length == 41;
-};
-
-var handleInvalidID = function (socket) {
-  console.log("invalid id: blocking request");
-  socket.emit('redirect', '/invalid.html');
-};
-
-function checkPreviousParticipant(workerId, callback) {
-  var p = { 'workerId': workerId };
-  var postData = {
-    dbname: 'curiotower',
-    query: p,
-    projection: { '_id': 1 }
-  };
-  sendPostRequest(
-    'http://localhost:8000/db/exists',
-    { json: postData },
-    (error, res, body) => {
-      try {
-        if (!error && res.statusCode === 200) {
-          console.log("success! Received data " + JSON.stringify(body));
-          callback(body);
-        } else {
-          throw `${error}`;
-        }
-      }
-      catch (err) {
-        console.log(err);
-        console.log('no database; allowing participant to continue');
-        return callback(false);
-      }
-    }
-  );
-};
-
-function sendStim(socket, data) {
-  console.log('sending request to mongo')
+function initializeWithTrials(socket) {
+  var gameid = UUID();
+  var colname = 'curiotower_curiodrop';
   sendPostRequest('http://localhost:8000/db/getstims', {
     json: {
       dbname: 'stimuli',
-      colname: 'curiotower_curiodrop',
-      numTrials: 1,
-      gameid: data.gameID
+      colname: colname,
+      //numTrials: 1,
+      gameid: gameid
     }
   }, (error, res, body) => {
     if (!error && res.statusCode === 200) {
+      // send trial list (and id) to client
       var packet = {
         gameid: gameid,
         meta: body.meta,
-        version: body.stim_version
+        stim_version: body.stim_version
       };
-      socket.emit('stimulus', packet);     
+      socket.emit('onConnected', packet);
     } else {
       console.log(`error getting stims: ${error} ${body}`);
-      console.log(`falling back to local stimList`);
-      socket.emit('stimulus', _.sample(require('./example.json')));
     }
   });
-} // 
-
-// function initializeWithTrials(socket) {
-//   var gameid = UUID();
-//   var colname = 'causaldraw_intervention';
-//   sendPostRequest('http://localhost:6000/db/getbatchstims', {
-//     json: {
-//       dbname: 'stimuli',
-//       colname: colname,
-//       //numTrials: 1,
-//       gameid: gameid
-//     }
-//   }, (error, res, body) => {
-//     if (!error && res.statusCode === 200) {
-//       // send trial list (and id) to client
-//       var packet = {
-//         gameid: gameid,
-//         meta: body.meta,
-//         version: body.experimentVersion
-//       };
-//       socket.emit('onConnected', packet);
-//     } else {
-//       console.log(`error getting stims: ${error} ${body}`);
-//     }
-//   });
-// }
-
+}
 
 var UUID = function() {
   var baseName = (Math.floor(Math.random() * 10) + '' +

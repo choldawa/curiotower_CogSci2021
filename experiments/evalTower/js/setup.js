@@ -10,7 +10,7 @@ function sendData(data) {
 // Define trial object with boilerplate
 function Experiment() {
   this.type = 'image-button-response',
-    this.dbname = 'curiotower';
+  this.dbname = 'curiotower';
   this.colname = 'curiotower_curiodrop';
   this.iterationName = 'testing';
   this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
