@@ -183,7 +183,7 @@ jsPsych.plugins["image-button-response"] = (function() {
             // $('#message').removeClass('msg-alert').addClass('msg-continue').html(trial.message.continue);
 	    
             // start timing
-            start_time = performance.now();
+            start_time = Date.now();
 
             for (var i = 0; i < trial.choices.length; i++) {
             display_element.querySelector('#jspsych-image-button-response-button-' + i).addEventListener('click', function (e) {
