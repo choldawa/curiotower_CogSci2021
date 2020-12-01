@@ -9,3 +9,10 @@ Tip: Include this line in the header of your `index.html` file, and then you wil
 `<script src="data/example.json"></script>`
 6. `jspsych.css`: core jsPsych CSS stylesheet
 
+
+### Study Iterations:
+"Testing-new-meta" (~11/30/2020) 
+ - This version has an updated metadata file. It imports all of the trials as one meta object and then shuffles them.
+ - Currently 72 trials (69 curiodrop towers and 3 catch trials)
+ - Two possible conditions: "stable" and "interesting", we use same stimuli for both
+ 
