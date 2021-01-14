@@ -11,12 +11,12 @@ Tip: Include this line in the header of your `index.html` file, and then you wil
 
 
 ### Study Iterations:
-##### "Testing-new-meta" (~11/30/2020) 
+#### "Testing-new-meta" (~11/30/2020) 
  - This version has an updated metadata file. It imports all of the trials as one meta object and then shuffles them.
  - Currently 72 trials (69 curiodrop towers and 3 catch trials)
  - Two possible conditions: "stable" and "interesting", we use same stimuli for both
  
-##### "run_0" (~1/13/2021)
+#### "run_0" (~1/13/2021)
 dbname = 'curiotower';
 colname = 'tdw-height3Jitter3';
 iterationName = 'run_0'
