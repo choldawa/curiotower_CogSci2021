@@ -20,7 +20,8 @@ Tip: Include this line in the header of your `index.html` file, and then you wil
 dbname = 'curiotower';
 colname = 'tdw-height3Jitter3';
 iterationName = 'run_0'
-N=5 on 1/13/2021
+
+N=100 on 1/14/2021
  - This version uses our 3x3 design for tdw towers. 
     - We vary the x_jitter(low = 0, med = 0.07, high = 0.1) and num_blocks (2,4,8).
     - We also take two viewpoints (from above and below)
