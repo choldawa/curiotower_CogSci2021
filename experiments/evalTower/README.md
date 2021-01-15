@@ -24,6 +24,6 @@ N=5 on 1/13/2021
  - This version uses our 3x3 design for tdw towers. 
     - We vary the x_jitter(low = 0, med = 0.07, high = 0.1) and num_blocks (2,4,8).
     - We also take two viewpoints (from above and below)
- - Each tower set is generated from 8 different seeds, yields 8x3x3x2=144 stimuli
+    - Each tower set is generated from 8 different seeds, yields 8x3x3x2=144 stimuli
  - We also have two catch trials that are just a single block, generated with seed 999
  - As before, we are testing the stability and interestingness conditions
