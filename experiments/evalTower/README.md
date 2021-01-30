@@ -20,6 +20,7 @@ Tip: Include this line in the header of your `index.html` file, and then you wil
 dbname = 'curiotower';
 colname = 'tdw-height3Jitter3';
 iterationName = 'run_0'
+(app.js colname = 'curiotower')
 
 N=100 on 1/14/2021
  - This version uses our 3x3 design for tdw towers. 
@@ -28,3 +29,13 @@ N=100 on 1/14/2021
     - Each tower set is generated from 8 different seeds, yields 8x3x3x2=144 stimuli
  - We also have two catch trials that are just a single block, generated with seed 999
  - As before, we are testing the stability and interestingness conditions
+
+
+#### "run_1" (~1/30/2021)
+dbname = 'curiotower';
+colname = 'curiodrop';
+iterationName = 'run_1'
+(app.js colname = 'curiotower_curiodrop')
+
+N=20 on 1/30/2021
+ - We ran another 25 subjects on the cooltower stimuli (same 72 trials and catches as the "testing-new-meta" iteration)
