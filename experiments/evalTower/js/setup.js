@@ -8,7 +8,7 @@ function sendData(data) {
 // Define trial object with boilerplate
 function Experiment() {
   //cogsci 2020 data (run_0)
-  // this.type = 'image-button-response',
+  this.type = 'image-button-response',
   // this.dbname = 'curiotower';
   // this.colname = 'tdw-height3Jitter3';
   // this.iterationName = 'run_0';
