@@ -7,12 +7,17 @@ function sendData(data) {
 
 // Define trial object with boilerplate
 function Experiment() {
+  //cogsci 2020 data (run_0)
   this.type = 'image-button-response',
+  // this.dbname = 'curiotower';
+  // this.colname = 'tdw-height3Jitter3';
+  // this.iterationName = 'run_0';
+
   this.dbname = 'curiotower';
-  this.colname = 'curiotower_curiodrop';
-  this.iterationName = 'testing-new-meta';
-  this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
-  this.condition = _.sample([0, 1]) == 1 ? 'interesting' : 'stable';
+  this.colname = 'curiodrop';
+  this.iterationName = 'run_1';
+  // this.numTrials = 6; // TODO: dont hard code this, judy! infer it from the data
+  this.condition = 'interesting' //_.sample([0, 1]) == 1 ? 'interesting' : 'stable';
   this.prompt = this.condition == 'interesting' ? 'How interesting is this?' : 'How stable is this?';
 };
 
@@ -106,9 +111,9 @@ function setupGame() {
 
     // add consent pages
     consentHTML = {
-      'str1': '<p>We are scientists interested in understanding how children learn through play. In a previous study, \
-      we gave children a set of plastic shapes which they could arrange in any way they liked. \
-      In this study, you will be viewing some of the arrangements they created and making judgments about them. \
+      'str1': '<p style="text-align:center;"> <b> We are scientists interested in understanding how computers can learn like children through play. </b></p> \
+      <p style="text-align:center;">In a previous study, we gave children a set of plastic shapes which they could arrange in any way they liked. \
+      In this study, you will be viewing some of the arrangements of computer generated towers and making judgments about them. \
       Your task is to rate each tower on a 5-point scale. </p>',
       'str2': ["<u><p id='legal'>Consent to Participate</p></u>",
         "<p id='legal'>By completing this study, you are participating in a \
@@ -137,7 +142,7 @@ function setupGame() {
       Institutional Review Board.</p><p>Click 'Next' to continue \
       participating in this study.</p>"
       ].join(' '),
-      'str4': '<p> We expect this study to take approximately 5-8 minutes to complete, \
+      'str4': '<p> We expect this study to take approximately 15-20 minutes to complete, \
       including the time it takes to read instructions.</p>',
       'str5': "<p>If you encounter a problem or error, send us an email \
       (cogtoolslab.requester@gmail.com) and we will make sure you're compensated \
@@ -168,7 +173,9 @@ function setupGame() {
     };
 
 
-    var exitSurveyChoice = {
+    // exit survey trials
+    var surveyChoiceInfo = _.omit(_.extend({}, new Experiment), ['type', 'dev_mode']);
+    var exitSurveyChoice = _.extend({}, surveyChoiceInfo, {
       type: 'survey-multi-choice',
       preamble: "<strong><u>Survey</u></strong>",
       questions: [{
@@ -189,9 +196,34 @@ function setupGame() {
         required: true
       }
       ],
-    };
+      on_finish: main_on_finish
+    });
 
-    var exitSurveyText = {
+
+    // var exitSurveyChoice = {
+    //   type: 'survey-multi-choice',
+    //   preamble: "<strong><u>Survey</u></strong>",
+    //   questions: [{
+    //     prompt: "What is your sex?",
+    //     name: "participantSex",
+    //     horizontal: true,
+    //     options: ["Male", "Female", "Neither/Other/Do Not Wish To Say"],
+    //     required: true
+    //   },
+    //   {
+    //     prompt: "Did you encounter any technical difficulties while completing this study? \
+    //         This could include: images were glitchy (e.g., did not load), ability to click \
+    //         was glitchy, or sections of the study did \
+    //         not load properly.",
+    //     name: "technicalDifficultiesBinary",
+    //     horizontal: true,
+    //     options: ["Yes", "No"],
+    //     required: true
+    //   }
+    //   ],
+    // };
+    var surveyTextInfo = _.omit(_.extend({}, new Experiment), ['type', 'dev_mode']);
+    var exitSurveyText = _.extend({}, surveyTextInfo, {
       type: 'survey-text',
       questions: [
         { prompt: "Please enter your age:" },
@@ -200,7 +232,22 @@ function setupGame() {
         { prompt: "What criteria did not matter when evaluating " + experimentInstance.condition + "?", rows: 5, columns: 40 },
         { prompt: "Any final thoughts?", rows: 5, columns: 40 }
       ],
-    };
+      on_finish: main_on_finish
+    });
+
+
+
+
+    // var exitSurveyText = {
+    //   type: 'survey-text',
+    //   questions: [
+    //     { prompt: "Please enter your age:" },
+    //     { prompt: "What strategies did you use to rate the towers?", rows: 5, columns: 40 },
+    //     { prompt: "What criteria mattered most when evaluating " + experimentInstance.condition + "?", rows: 5, columns: 40 },
+    //     { prompt: "What criteria did not matter when evaluating " + experimentInstance.condition + "?", rows: 5, columns: 40 },
+    //     { prompt: "Any final thoughts?", rows: 5, columns: 40 }
+    //   ]
+    // };
 
     // add goodbye page
     var goodbye = {
@@ -208,17 +255,18 @@ function setupGame() {
       pages: [
         'Congrats! You are all done. Thanks for participating in our game! \
         Click NEXT to submit this study.',
-        'Thanks for participating. The study has been submitted. You may now close your browser.'
       ],
       show_clickable_nav: true,
       allow_backward: false,
       delay: false,
       on_finish: function() {
         // $(".confetti").remove();
+        document.body.innerHTML = '<p> Please wait. You will be redirected back to Prolific in a few moments.</p>'
+                setTimeout(function () { location.href = "https://app.prolific.co/submissions/complete?cc=34BB0C6B" }, 500)
         sendData();
       }
       //change the link below to your prolific-provided URL
-      // window.open("https://app.prolific.co/submissions/complete?cc=35C76043","_self")
+      // window.open("https://app.prolific.co/submissions/complete?cc=7A827F20","_self");
     };
 
     // add all experiment elements to trials array
