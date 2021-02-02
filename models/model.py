@@ -114,11 +114,7 @@ def color_diversity(d):
     obj_colors = object_colors(d)
     return np.std(obj_colors, axis=0).mean()
 
-def pisaness(d):
-    '''
-    How much a tower looks like the Leaning Tower of Pisa
-    That is, the accumulated shift in pixels going from bottom to top
-    '''
+def get_sorted_block_centroids(d):
     obj_masks = get_object_masks(d)
     K = obj_masks.shape[-1]
     centroids = []
@@ -129,7 +125,26 @@ def pisaness(d):
     # sort in order of increasing height
     centroids.sort(key=lambda t: -t[0])
 
-    # accumulate x-shift going up the tower
+    return centroids
+
+def silhouette_centroid_horizontal_offset(d):
+    '''
+    The absolute deviation between the silhoeutte centroid and
+    the bottom block's centroid in the horizontal plane
+    '''
+    silhouette = get_full_silhouette(d)
+    full_centroid = silhouette_centroid(silhouette)
+    block_centroids = get_sorted_block_centroids(d)
+    return np.abs(full_centroid[1] - block_centroids[0][1])
+
+def pisaness(d):
+    '''
+    How much a tower looks like the Leaning Tower of Pisa
+    That is, the accumulated shift in pixels going from bottom to top
+    '''
+    centroids = get_sorted_block_centroids(d)
+
+    # accumulated w-shift going up the tower
     return np.abs(centroids[-1][1] - centroids[0][1])
 
 
@@ -145,6 +160,7 @@ MODEL_FUNCS = [
     silhouette_area_to_bounding_box_area_ratio,
     silhouette_jaggedness,
     color_diversity,
+    silhouette_centroid_horizontal_offset,
     pisaness,
     num_visible_objects
 ]
