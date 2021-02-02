@@ -49,6 +49,13 @@ def get_full_silhouette(d):
     foreground = segmap.sum(-1) > 0
     return foreground
 
+def silhouette_centroid(foreground):
+    H,W = foreground.shape
+    him = np.tile(np.linspace(-1.,1.,H)[:,None], [1,W])
+    wim = np.tile(np.linspace(-1.,1.,W)[None,:], [H,1])
+    hwim = np.stack([him, wim], -1) # [H,W,2]
+    return np.sum(hwim * foreground[...,None], axis=(0,1)) / np.sum(foreground)
+
 def silhouette_height(d):
     fg_map = get_full_silhouette(d)
     hinds, _ = np.where(fg_map)
@@ -91,7 +98,7 @@ def num_visible_objects(d, exclude_background=True):
     num_objs = len(np.unique(hashed_segmap))
     return num_objs - 1. if exclude_background else num_objs + 0.
 
-def color_diversity(d):
+def object_colors(d):
     img = get_pass_mask(d, img_key='_img') / 255.
     omasks = get_object_masks(d, exclude_background=True)
     K = omasks.shape[-1]
@@ -101,7 +108,30 @@ def color_diversity(d):
         ocolor = ocolor / omasks[...,k:k+1].sum(axis=(0,1))
         obj_colors[k] = ocolor
 
+    return obj_colors
+
+def color_diversity(d):
+    obj_colors = object_colors(d)
     return np.std(obj_colors, axis=0).mean()
+
+def pisaness(d):
+    '''
+    How much a tower looks like the Leaning Tower of Pisa
+    That is, the accumulated shift in pixels going from bottom to top
+    '''
+    obj_masks = get_object_masks(d)
+    K = obj_masks.shape[-1]
+    centroids = []
+    for k in range(K):
+        centroid_k = silhouette_centroid(obj_masks[...,k])
+        centroids.append(centroid_k)
+
+    # sort in order of increasing height
+    centroids.sort(key=lambda t: -t[0])
+
+    # accumulate x-shift going up the tower
+    return np.abs(centroids[-1][1] - centroids[0][1])
+
 
 ########################
 #####INFRASTRUCTURE#####
@@ -115,6 +145,7 @@ MODEL_FUNCS = [
     silhouette_area_to_bounding_box_area_ratio,
     silhouette_jaggedness,
     color_diversity,
+    pisaness,
     num_visible_objects
 ]
 
