@@ -41,8 +41,10 @@ dat_interesting = dat %>% select('button_pressed',
                      'prolificID', 
                      'condition') %>% 
   filter(condition== 'interesting')
+dat_with_stability
 dat_interesting$stability = factor(dat_interesting$stability, order = TRUE, 
                        levels = c('low', 'med', 'high'))
+dat_interesting$jitter = dat_interesting$stability
 dat_interesting$num_blocks_ordered = factor(dat_interesting$num_blocks, order = TRUE, 
                                 levels = c('2', '4', '8'))
 
@@ -78,10 +80,7 @@ dat_with_stability = merge(dat_full,df_stability_tests,by=c("towerID"))
 glimpse(dat_with_stability)
 ```
 
-```{r}
-ggplot(data = dat_with_stability)+
-  geom_bar(aes(x =forcemin, y = avg_stable_rating), stat = "summary", fun.y = "mean")
-```
+
 
 ## Compute lme results with experimental conditions
 
@@ -96,27 +95,18 @@ model1 = lmer(button_pressed ~ 1 +
                 num_blocks+
                 (1|towerID)+
                 (1|prolificID),data=dat_full)
-summary(model1)
 
 model2 = lmer(button_pressed ~ 1 + 
                 num_blocks+
                 stability + 
                (1|towerID)+
                (1|prolificID),data=dat_full)
-summary(model2)
-
-#copmare model1 and model 2
-anova(model1,model2)
-
 
 model3 = lmer(button_pressed ~ 1 + 
                 stability * 
                 num_blocks +
                 (1|towerID)+
                 (1|prolificID),data=dat_full)
-summary(model3)
-
-
 
 model4 = lmer(button_pressed ~ 1 + 
                 stability *
@@ -124,7 +114,6 @@ model4 = lmer(button_pressed ~ 1 +
                 viewpoint+
                 (1|towerID)+
                 (1|prolificID),data=dat_full)
-summary(model4)
 
 model5 = lmer(button_pressed ~ 1 + 
                 stability *
@@ -132,9 +121,8 @@ model5 = lmer(button_pressed ~ 1 +
                 viewpoint+
                 (1|towerID)+
                 (1|prolificID),data=dat_full)
-summary(model5)
 
-anova(model0, model1, model2, model3, model4, model5)
+#anova(model0, model1, model2, model3, model4, model5)
 ```
 
 ## Compute lme results with physical properties (aspect ratio and dynamics)
@@ -144,16 +132,14 @@ model_static = lmer(button_pressed ~ 1 +
                 aspect_ratio+
                 (1|towerID)+
                 (1|prolificID),data=dat_with_stability)
-summary(model_static)
 
 model_dynamic = lmer(button_pressed ~ 1 + 
                 aspect_ratio+
                 forcemin+
                 (1|towerID)+
                 (1|prolificID),data=dat_with_stability)
-summary(model_dynamic)
 
-anova(model_static, model_dynamic)
+#anova(model_static, model_dynamic)
 
 ```
 
@@ -165,17 +151,43 @@ model_stability_dynamics = lmer(button_pressed ~ 1 +
                 avg_stable_rating+
                 (1|towerID)+
                 (1|prolificID),data=dat_with_stability)
-summary(model_stability_dynamics)
 
 model_stability= lmer(button_pressed ~ 1 + 
                 avg_stable_rating+
                 (1|towerID)+
                 (1|prolificID),data=dat_with_stability)
-summary(model_stability)
 
-anova(model_stability, model_stability_dynamics)
+#anova(model_stability, model_stability_dynamics)
 
-anova(model_dynamic, model_stability_dynamics)
+#anova(model_dynamic, model_stability_dynamics)
 ```
+
+#----Now run tests for explainable variance
+
+```{r}
+
+noise_ceiling = sqrt(0.977)
+lm0 = lm(data = dat_with_stability, button_pressed ~ num_blocks)
+lm1 = lm(data = dat_with_stability, button_pressed ~ jitter + num_blocks)
+lm2 = lm(data = dat_with_stability, button_pressed ~ jitter * num_blocks)
+lm3 = lm(data = dat_with_stability, button_pressed ~ jitter * num_blocks + viewpoint)
+lm4 = lm(data = dat_with_stability, button_pressed ~ aspect_ratio)
+lm5 = lm(data = dat_with_stability, button_pressed ~ num_blocks*aspect_ratio)
+lm6 = lm(data = dat_with_stability, button_pressed ~ aspect_ratio +forcemin) 
+lm7 = lm(data = dat_with_stability, button_pressed ~ aspect_ratio+ forcemin + avg_stable_rating)
+lm8 = lm(data = dat_with_stability, button_pressed ~ avg_stable_rating)
+
+lm_all = lm(data = dat_with_stability, button_pressed ~ aspect_ratio +forcemin + avg_stable_rating+ jitter * num_blocks)
+
+summary(lm2)
+summary(lm7)
+
+#sqrt(summary(lm4)$r.squared)/noise_ceiling
+
+```
+
+
+
+
 
 
