@@ -30,7 +30,7 @@ There are also two additional directories: `models` and `utils` which provide au
 
 In this experiment we gave 53 children a set of 9 primitve plastic blocks and asked them to construct a "cool tower". We documented the towers and then asked adults to rate the towers on a scale from 1-5 on how interesting they were. Our key finding was that taller towers were considered more interesting.
 
-[link to all towers](https://github.com/langcog/curiobaby_drop/tree/master/coolTower)
+`stimuli` We gave each of the kids a set of 9 preimitive plastic blocks and instructions to "build a cool tower". [link to all towers](https://github.com/langcog/curiobaby_drop/tree/master/coolTower)
 
 `analysis`
 
