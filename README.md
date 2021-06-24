@@ -1,6 +1,7 @@
 ## Repo under construction. Coming June 2021
 
-# What makes a tower interesting to build?
+# What makes a tower interesting?
+## Measuring and predicting variation in the interestingness of physical structures 
 <p align="center">
   <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_4_high_0005_1.png" width="20%" height="20%">
   <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_8_high_0000_0.png" width="20%" height="20%">
