@@ -15,12 +15,10 @@ What features of a physical scene make it interesting? In this project we explor
 _Where can I find things?_
 
 The repo is divided into three main sections: 
-1. `stimuli` where you can find scripts for generating or viewing the stimuli from the two experiments
-``curiotower_CogSci2021/stimuli/``
-2. `experiments` where you can find code used for running the two web-based rating tasks
-``curiotower_CogSci2021/experiments/``
-3. `analysis` where you can find our scripts for analysis and results.
-``curiotower_CogSci2021/analysis/``
+1. ``/stimuli/`` where you can find scripts for generating or viewing the stimuli from the two experiments
+2. `/experiments/` where you can find code used for running the two web-based rating tasks
+3. `/analysis/` where you can find our scripts for analysis and results.
+
 There are also two additional directories: `models` and `utils` which provide auxiliary support. 
 We'll expand on each of these sections below:
 
