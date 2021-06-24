@@ -10,13 +10,15 @@ The repo is divided into three main sections:
 1. `stimuli` where you can find scripts for generating or viewing the stimuli from the two experiments
 2. `experiments` where you can find code used for running the two web-based rating tasks
 3. `analysis` where you can find our scripts for analysis and results.
-There are also two additional directories: `models` and `XXX` which provide auxiliary support. We'll expand on each of these section below:
+
+There are also two additional directories: `models` and `XXX` which provide auxiliary support. 
+We'll expand on each of these section below:
 
 1. `stimuli`: using [tdw_physics](https://github.com/cogtoolslab/tdw_physics) to procedurally generate towers
 
 2. `experiments`:
 #### Experiment 1: What towers do children choose to build?
-<img src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/cooltower_example.jpeg" width="10%" height="10%">
+<img src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/cooltower_example.jpeg" width="20%" height="20%">
 
 #### Experiment 2: What features of a physical scene make it interesting?
 
