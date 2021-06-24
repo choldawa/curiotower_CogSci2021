@@ -3,7 +3,7 @@
 # What makes a tower interesting to build?
 What features of a physical scene make it interesting? In this project we explore both open-ended building behavior in kids, as well as adult ratings of pre-built towers. We find that ``interestingness`` is a surprisingly reliable measure between subjects, and that physical configurations that violate expectations are considered more interesting.
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/cooltower_example.jpeg)
 
 1. `stimuli`: using [tdw_physics](https://github.com/cogtoolslab/tdw_physics) to procedurally generate towers
 
