@@ -21,7 +21,7 @@ The repo is divided into three main sections:
 
 There are also two additional directories: `models` and `utils` which provide auxiliary support. 
 
-`experiments`
+### experiments
 #### Experiment 1: What towers do children choose to build?
 <p align="center">
 <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/cooltower_example.jpeg" width="20%" height="20%">
