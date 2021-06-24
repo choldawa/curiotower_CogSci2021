@@ -47,5 +47,5 @@ In this experiment we procedurally generated towers using the TDW physics enviro
 `analysis` 
 - The script for the model comparisons in the paper can be found [here] (https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/curiotower_lme_analysis.R)
 - [Script] (https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/curiotower_figs.R) for generating key figures in the  paper 
-- We also include aditional supplemental analyses for the [split-halves reliability] (https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/Split-halves%20analysis.ipynb) and [correlation] (https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/Stability-Interesting%20Correlation.ipynb) we conducted while exploring the relationship between interestingness and stability  
+- We also include aditional supplemental analyses for the [split-halves reliability](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/Split-halves%20analysis.ipynb) and [correlation](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/Stability-Interesting%20Correlation.ipynb) we conducted while exploring the relationship between interestingness and stability  
 
