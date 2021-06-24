@@ -16,9 +16,11 @@ _Where can I find things?_
 
 The repo is divided into three main sections: 
 1. `stimuli` where you can find scripts for generating or viewing the stimuli from the two experiments
+``curiotower_CogSci2021/stimuli/``
 2. `experiments` where you can find code used for running the two web-based rating tasks
+``curiotower_CogSci2021/experiments/``
 3. `analysis` where you can find our scripts for analysis and results.
-
+``curiotower_CogSci2021/analysis/``
 There are also two additional directories: `models` and `utils` which provide auxiliary support. 
 We'll expand on each of these sections below:
 
@@ -33,7 +35,15 @@ We'll expand on each of these sections below:
  <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/121319_03.png" width="20%" height="20%">
  </p>
 
+In this experiment we gave 53 children a set of 9 primitve plastic blocks and asked them to construct a "cool tower". We documented the towers and then asked adults to rate the towers on a scale from 1-5 on how interesting they were. Our key finding was that taller towers were considered more interesting.
+
 #### Experiment 2: What features of a physical scene make it interesting?
+<p align="center">
+  <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_4_high_0005_1.png" width="20%" height="20%">
+  <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_8_high_0000_0.png" width="20%" height="20%">
+</p>
+
+In this experiment we procedurally generated towers using the TDW physics environment. We specififcally varied the height (2,4,8 blocks) and the jitter in the x position (low, med, high jitter). We created 72 towers, rendered from two different viewpoints for a total of 144 towers. 
 
 3. `analysis`:
 
