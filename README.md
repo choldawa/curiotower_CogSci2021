@@ -45,7 +45,7 @@ In this experiment we procedurally generated towers using the TDW physics enviro
 `stimuli` In the second experiment, we procedurally generated towers using the [tdw_physics](https://github.com/cogtoolslab/tdw_physics) virtual 3d physics environment
 
 `analysis` 
-- The script for the model comparisons in the paper can be found [here](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/curiotower_lme_analysis.R)
-- [Script](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/curiotower_figs.R) for generating key figures in the  paper 
+- The script for the [model comparisons](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/curiotower_lme_analysis.R) in the paper 
+- Generate key [figures](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/curiotower_figs.R)
 - We also include aditional supplemental analyses for the [split-halves reliability](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/Split-halves%20analysis.ipynb) and [correlation](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/Stability-Interesting%20Correlation.ipynb) we conducted while exploring the relationship between interestingness and stability  
 
