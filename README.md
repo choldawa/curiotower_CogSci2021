@@ -32,7 +32,7 @@ In this experiment we gave 53 children a set of 9 primitve plastic blocks and as
 
 `stimuli` We gave each of the kids a set of 9 preimitive plastic blocks and instructions to "build a cool tower". [link to all towers](https://github.com/langcog/curiobaby_drop/tree/master/coolTower)
 
-`analysis` The script generating the dataframe consisting of adult ratings of the child-built towers can be found [here](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/evalTower-cooltower.ipynb)
+`analysis` The script generating the dataframe consisting of adult ratings of the child-built towers can be found [here](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/evalTower-cooltower.ipynb).
 And you can find the script for generating the key figure [here](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/analysis/curiotower_figs.R)
 
 #### Experiment 2: What features of a physical scene make it interesting?
