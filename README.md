@@ -26,6 +26,7 @@ We'll expand on each of these sections below:
 #### Experiment 1: What towers do children choose to build?
 <p align="center">
 <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/cooltower_example.jpeg" width="20%" height="20%">
+ <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/121319_03.png" width="20%" height="20%">
  </p>
 
 #### Experiment 2: What features of a physical scene make it interesting?
