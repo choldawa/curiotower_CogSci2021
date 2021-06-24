@@ -2,8 +2,8 @@
 
 # What makes a tower interesting to build?
 <p float="center">
-  <img src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_4_high_0005_1.png" width="20%" height="20%">
-  <img src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_8_high_0000_0.png" width="20%" height="20%">
+  <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_4_high_0005_1.png" width="20%" height="20%">
+  <img align = 'center' src="https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/stimuli/curiotower_8_high_0000_0.png" width="20%" height="20%">
 </p>
 
 
