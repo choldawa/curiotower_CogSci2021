@@ -23,9 +23,8 @@ There are also two additional directories: `models` and `utils` which provide au
 We'll expand on each of these sections below:
 
 1. `stimuli`: 
-In our first experiment, we asked children to build towers using 9 primitive blocks. [link to all towers](https://github.com/langcog/curiobaby_drop/tree/master/coolTower)
-
-In the second experiment, we procedurally generated towers using the [tdw_physics](https://github.com/cogtoolslab/tdw_physics) virtual 3d physics environment
+- In our first experiment, we asked children to build towers using 9 primitive blocks. [link to all towers](https://github.com/langcog/curiobaby_drop/tree/master/coolTower)
+- In the second experiment, we procedurally generated towers using the [tdw_physics](https://github.com/cogtoolslab/tdw_physics) virtual 3d physics environment
 
 2. `experiments`:
 #### Experiment 1: What towers do children choose to build?
