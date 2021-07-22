@@ -1,4 +1,4 @@
-## Repo under construction. Coming June 2021
+### Some small repo edits still in progress
 
 # Measuring and predicting variation in the interestingness of physical structures
 [Cogsci 2021 paper](https://github.com/cogtoolslab/curiotower_CogSci2021/blob/master/CogSci2021_final_submission.pdf)
